@@ -1,8 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SVONLink.h"
 #include "SVONDefines.h"
+#include "SVONLink.h"
 
 struct UESVON_API SVONNode
 {
@@ -13,18 +13,20 @@ struct UESVON_API SVONNode
 
 	SVONLink myNeighbours[6];
 
-	SVONNode() :
-		myCode(0),
-		myParent(SVONLink::GetInvalidLink()),
-		myFirstChild(SVONLink::GetInvalidLink()) {}
+	SVONNode()
+		: myCode(0)
+		, myParent(SVONLink::GetInvalidLink())
+		, myFirstChild(SVONLink::GetInvalidLink())
+	{
+	}
 
 	bool HasChildren() const { return myFirstChild.IsValid(); }
-
 };
 
-FORCEINLINE FArchive &operator <<(FArchive &Ar, SVONNode& aSVONNode)
+FORCEINLINE FArchive& operator<<(FArchive& Ar, SVONNode& aSVONNode)
 {
-	Ar << aSVONNode.myCode;
+	uint64 Temp = static_cast<uint64>(aSVONNode.myCode);
+	Ar << Temp;
 	Ar << aSVONNode.myParent;
 	Ar << aSVONNode.myFirstChild;
 

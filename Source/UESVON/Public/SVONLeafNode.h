@@ -42,6 +42,7 @@ struct UESVON_API SVONLeafNode
 
 FORCEINLINE FArchive& operator<<(FArchive& Ar, SVONLeafNode& aSVONLeafNode)
 {
-	Ar << aSVONLeafNode.myVoxelGrid;
+	uint64 Temp = static_cast<uint64>(aSVONLeafNode.myVoxelGrid);
+	Ar << Temp;
 	return Ar;
 }
